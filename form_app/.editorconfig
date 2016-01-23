@@ -1,0 +1,4 @@
+root = true
+[**.R]
+indent_size = 2
+
