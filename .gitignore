@@ -1,3 +1,7 @@
 **.swp
 **/shiny-logs/**.*
 **.json
+**.RData
+**.Rhistory
+**.jpg
+**.png
