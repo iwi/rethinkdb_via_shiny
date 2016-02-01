@@ -1,4 +1,17 @@
 library(shiny)
+library(shinyjs)
+
+mandatory_fields <- c("name")
+
+mandatory_label <- function(label) {
+  tagList(
+    label,
+    span("*", class = "mandatory_star")
+  )
+}
+
+appCSS <- ".mandatory_star { color: red; }"
+
 
 shinyUI(navbarPage(
   title = "Tatiana's teaching materials",
@@ -12,50 +25,58 @@ shinyUI(navbarPage(
   ),
   tabPanel('Input new material',
     fluidPage(
-#      titlePanel(strong('Input nuevo material')),
-      sidebarLayout(
-        sidebarPanel(
-          textInput(
-            'nombre',
-            label = h3('Nombre del material'), 
-            value = '...'
-          ),
-          checkboxGroupInput(
-            "nivel",
-            label = h3('Nivel'), 
-            choices = list("Reception" = 'Reception', 
-                           "Year 1" = 'Year 1', 
-                           "Year 2" = 'Year 2',
-                           "Year 3" = 'Year 3',
-                           "Year 4" = 'Year 4',
-                           "Year 5" = 'Year 5',
-                           "Year 6" = 'Year 6',
-                           "Adults" = 'Adults'
-                           ),
-            selected = 1
-          )
-#          selectInput(
-#            "material",
-#            label = h3("Material"), 
-#            choices = list("Juego" = 'Juego',
-#                           "Canción" = 'Canción',
-#                           "Texto" = 'Texto',
-#                           "Otros" = 'Otros'), 
-#            selected = 1
-#          )
+      shinyjs::useShinyjs(),
+      shinyjs::inlineCSS(appCSS),
+      titlePanel("Nuevo material"),
+      div(
+        id = "form",
+        textInput(
+          "name",
+          h3(mandatory_label("Nombre")),
+          ""),
+        textInput(
+          "creator",
+          h3("Creado por")),
+        sliderInput(
+          "score",
+          h3("Valoración"),
+          0, 100, 50,
+          ticks = FALSE),
+        selectInput(
+          "location",
+          h3("Ubicación"),
+          c("Cajón derecho del mueble blanco",
+            "Mueble ruedas compartimento inferior",
+            "Madriguerita de plástico en armario pasillo",
+            "Debajo de la mesa",
+            "Otro sitio misterioso")),
+        checkboxGroupInput(
+          "level",
+          label = h3('Nivel'),
+          choices = list("Reception" = 'Reception',
+                         "Year 1" = 'Year 1',
+                         "Year 2" = 'Year 2',
+                         "Year 3" = 'Year 3',
+                         "Year 4" = 'Year 4',
+                         "Year 5" = 'Year 5',
+                         "Year 6" = 'Year 6',
+                         "Adults" = 'Adults'
+                    ),
+          selected = 1
         ),
-        mainPanel(
-          h3('Material a añadir'),
-          textOutput('nombre'),
-          br(),
-          textOutput('nivel'),
-          br(),
-          textOutput('material'),
-          br(),
-          submitButton("Añadir"),
-          br(),
-          downloadButton("Guardar")
-        )
+        selectInput(
+          "material",
+          label = h3("Material"),
+          choices = list("Juego" = 'Juego',
+                         "Canción" = 'Canción',
+                         "Texto" = 'Texto',
+                         "Otros" = 'Otros'),
+          selected = 1
+        ),
+        actionButton(
+          "submit",
+          "Submit",
+          class = "btn-primary")
       )
     )
   ),
