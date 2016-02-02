@@ -1,8 +1,6 @@
 library(shiny)
 library(shinyjs)
 
-mandatory_fields <- c("name")
-
 mandatory_label <- function(label) {
   tagList(
     label,
