@@ -39,19 +39,21 @@ shinyServer(function(input, output){
   # format data to save
   form_data <- reactive({
     data <- sapply(save_fields, 
-                   function(x) input[[x]])
+                   function(x) input[[x]]
+                  )
     data <- c(data, timestamp = epoch_time())
     data <- t(data)
-    data_json <- toJSON(data)
-    data_json
+    data <- toJSON(data)
+    data
   })
   
   # Save the data
+  print(getwd())
   save_data <- function(data) {
-    filename <- 'record.json'
-    writeLines(x = data,
-               file = file.path(responses_directory,
-                                filename),
+    filename <- '/srv/shiny-server/responses/test_record.json'
+    write(data,
+          file = filename,
+          append = FALSE
     )
   }
 
