@@ -20,6 +20,8 @@ epoch_time <- function() {
     as.integer(Sys.time())
 }
 
+# host <- 
+# port <-
 
 shinyServer(function(input, output){
   # activate/deactivate Submit button iff mandatory fields are filled
@@ -51,6 +53,17 @@ shinyServer(function(input, output){
   print(getwd())
   save_data <- function(data) {
     filename <- '/srv/shiny-server/responses/test_record.json'
+    # connect to db
+    conn <- openConnection(host, port)
+    # insert record to someDb's someTable
+    r()$db("database")$table("materials")$insert(
+       list(
+         id = "777",
+         stuff = list(who = "cares")
+       ),
+       conflict = "update",
+       return_changes = TRUE
+    )$run(conn) 
     write(data,
           file = filename,
           append = FALSE
