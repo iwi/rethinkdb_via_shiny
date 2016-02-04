@@ -1,4 +1,6 @@
 install.packages(c('rjson',
-                   'shinyjs'))
+                   'shinyjs',
+                   'rethinker'))
 
-devtools::install_github('rstudio/DT')
+# devtools::install_github('rstudio/DT') # devtools need to be installed for
+# this to work.
