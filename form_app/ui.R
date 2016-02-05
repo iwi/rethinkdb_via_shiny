@@ -43,14 +43,29 @@ shinyUI(navbarPage(
         selectInput(
           "location",
           h3("Ubicación"),
-          c("Cajón derecho del mueble blanco",
+          c("",
+            "Cajón derecho del mueble blanco",
             "Mueble ruedas compartimento inferior",
             "Madriguerita de plástico en armario pasillo",
             "Debajo de la mesa",
             "Otro sitio misterioso")),
         checkboxGroupInput(
-          "level",
-          label = h3('Nivel'),
+          "used_level",
+          label = h3('Nivel en que los he usado'),
+          choices = list("Reception" = 'Reception',
+                         "Year 1" = 'Year 1',
+                         "Year 2" = 'Year 2',
+                         "Year 3" = 'Year 3',
+                         "Year 4" = 'Year 4',
+                         "Year 5" = 'Year 5',
+                         "Year 6" = 'Year 6',
+                         "Adults" = 'Adults'
+                    ),
+          selected = 1
+        ),
+        checkboxGroupInput(
+          "target_level",
+          label = h3('Nivel target'),
           choices = list("Reception" = 'Reception',
                          "Year 1" = 'Year 1',
                          "Year 2" = 'Year 2',
@@ -71,6 +86,10 @@ shinyUI(navbarPage(
                          "Otros" = 'Otros'),
           selected = 1
         ),
+        textInput(
+          "comments",
+          h3("Comentarios")),
+
         actionButton(
           "submit",
           "Submit",

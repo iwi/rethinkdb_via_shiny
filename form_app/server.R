@@ -5,13 +5,16 @@ library(rethinker)
 
 # external stuff
 # declare mandatory fields
-mandatory_fields <- c("name", "level")
+mandatory_fields <- c("name", "target_level", "material")
 
 # declare save fields
 save_fields <- c("name",
+                 "creator",
                  "score",
                  "material",
-                 "level"
+                 "used_level",
+                 "target_level",
+                 "comments"
                 )
 
 responses_directory <- file.path("responses")
@@ -60,8 +63,10 @@ shinyServer(function(input, output){
          creador = input$creator,
          score = input$score,
          ubicacion = input$location,
-         nivel = input$level,
-         material = input$material
+         material = input$material,
+         nivel_usado = input$used_level,
+         nivel_target = input$target_level,
+         comentarios = input$comments
        ),
        conflict = "update",
        return_changes = TRUE
