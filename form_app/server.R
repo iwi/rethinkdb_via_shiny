@@ -1,7 +1,7 @@
 library(shiny)
 library(rjson)
 library(shinyjs)
-
+library(rethinker)
 
 # external stuff
 # declare mandatory fields
@@ -20,8 +20,8 @@ epoch_time <- function() {
     as.integer(Sys.time())
 }
 
-# host <- 
-# port <-
+host <- 'db'
+port <- 28015
 
 shinyServer(function(input, output){
   # activate/deactivate Submit button iff mandatory fields are filled
@@ -39,35 +39,33 @@ shinyServer(function(input, output){
   })
 
   # format data to save
-  form_data <- reactive({
-    data <- sapply(save_fields, 
-                   function(x) input[[x]]
-                  )
-    data <- c(data, timestamp = epoch_time())
-    data <- t(data)
-    data <- toJSON(data)
-    data
-  })
+#  form_data <- reactive({
+#    data <- sapply(save_fields, 
+#                   function(x) input[[x]]
+#                  )
+#    data <- c(data, timestamp = epoch_time())
+#    data <- t(data)
+#    data <- toJSON(data)
+#    data
+#  })
   
   # Save the data
-  print(getwd())
   save_data <- function(data) {
-    filename <- '/srv/shiny-server/responses/test_record.json'
     # connect to db
     conn <- openConnection(host, port)
     # insert record to someDb's someTable
-    r()$db("database")$table("materials")$insert(
+    r()$db("test")$table("materials")$insert(
        list(
-         id = "777",
-         stuff = list(who = "cares")
+         nombre = input$name,
+         creador = input$creator,
+         score = input$score,
+         ubicacion = input$location,
+         nivel = input$level,
+         material = input$material
        ),
        conflict = "update",
        return_changes = TRUE
     )$run(conn) 
-    write(data,
-          file = filename,
-          append = FALSE
-    )
   }
 
   # action to take when submit button is pressed

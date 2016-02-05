@@ -16,8 +16,5 @@ db-clean:
 count:
 	@docker run --rm -it --net junt -v $(PWD):/source iwi/python_db python test.py
 
-insert:
-	@docker run --rm -it --net junt -v $(PWD):/source iwi/db_ui_materials insert_material.py
-
 shiny:
-	@docker run --rm -it --net -p 3838:3838 -v $(PWD):/srv/shiny-server/ iwi/db_ui_stack
+	@docker run --rm -it --net junt -p 3838:3838 -v $(PWD):/srv/shiny-server/ iwi/db_ui_stack2
