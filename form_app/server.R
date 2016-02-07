@@ -43,17 +43,6 @@ shinyServer(function(input, output){
                          condition = mandatoryFilled)
   })
 
-  # format data to save
-#  form_data <- reactive({
-#    data <- sapply(save_fields, 
-#                   function(x) input[[x]]
-#                  )
-#    data <- c(data, timestamp = epoch_time())
-#    data <- t(data)
-#    data <- toJSON(data)
-#    data
-#  })
-  
   # Save the data
   save_data <- function(data) {
     # connect to db
