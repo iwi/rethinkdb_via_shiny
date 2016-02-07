@@ -25,6 +25,8 @@ epoch_time <- function() {
 
 host <- 'db'
 port <- 28015
+database <- 'test'
+table <- 'materials'
 
 shinyServer(function(input, output){
   # activate/deactivate Submit button iff mandatory fields are filled
@@ -37,7 +39,7 @@ shinyServer(function(input, output){
       logical(1)
     )
     mandatoryFilled <- all(mandatoryFilled)
-    shinyjs::toggleState(id = "submit",
+    shinyjs::toggleState(id = "add_record",
                          condition = mandatoryFilled)
   })
 
@@ -57,7 +59,7 @@ shinyServer(function(input, output){
     # connect to db
     conn <- openConnection(host, port)
     # insert record to someDb's someTable
-    r()$db("test")$table("materials")$insert(
+    r()$db('test')$table('materials')$insert(
        list(
          nombre = input$name,
          creador = input$creator,
@@ -66,16 +68,15 @@ shinyServer(function(input, output){
          material = input$material,
          nivel_usado = input$used_level,
          nivel_target = input$target_level,
-         comentarios = input$comments
-       ),
+         comentarios = input$comments),
        conflict = "update",
-       return_changes = TRUE
+       return_changes = FALSE 
     )$run(conn) 
   }
 
   # action to take when submit button is pressed
-  observeEvent(input$submit, {
+  observeEvent(input$add_record, {
                save_data(form_data())
-                        })  
+  })  
 })
 
