@@ -65,7 +65,7 @@ shinyServer(function(input, output){
       list(
         nombre = input$search_name)
       )$run(conn)
-    output$found_name <- renderText({toString(found_name)})
+    output$found_name <- renderPrint({list(unlist(found_name))})
   }
 
   # action to take when name search button is pressed
