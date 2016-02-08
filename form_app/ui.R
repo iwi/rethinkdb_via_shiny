@@ -144,8 +144,8 @@ shinyUI(navbarPage(
         ),
         mainPanel(
           div(
-            id = 'outcome'
-#           output$found_name
+            id = 'outcome',
+            h3(textOutput('found_name'))
           )
         )
       )
