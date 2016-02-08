@@ -38,7 +38,7 @@ shinyServer(function(input, output){
     # connect to db
     conn <- openConnection(host, port)
     # insert record to someDb's someTable
-    r()$db('test')$table('materials')$insert(
+    r()$db(database)$table(table)$insert(
        list(
          nombre = input$name,
          creador = input$creator,
@@ -50,13 +50,32 @@ shinyServer(function(input, output){
          nivel_target = input$target_level,
          comentarios = input$comments),
        conflict = "update",
-       return_changes = FALSE 
-    )$run(conn) 
+       return_changes = FALSE
+    )$run(conn)
   }
 
   # action to take when submit button is pressed
   observeEvent(input$add_record, {
-               save_data(form_data())
-  })  
+               save_data()
+  })
+
+  # Search name
+  search_by_name <- function(){
+    conn <- openConnection(host, port)
+    found_name <- r()$db('test')$table('materials')$filter(
+      list(
+        nombre= input$search_name)
+      )$run(conn)
+  }
+
+  # action to take when name search button is pressed
+  observeEvent(input$name_search, {
+               search_by_name()
+  })
+
+
+
+
+
 })
 

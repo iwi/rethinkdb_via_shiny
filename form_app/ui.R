@@ -109,13 +109,13 @@ add_record_button <- function(){
 
 search_name_input <- function(){
   textInput(
-    'search_name_input',
+    'search_name',
     h3('Búsqueda por nombre del material'))
 }
 
-start_search_button <- function(){
+search_name_button <- function(){
   actionButton(
-    "start_name_search",
+    "name_search",
     label = "Buscar",
     class = "btn-secondary")
 }
@@ -129,8 +129,15 @@ shinyUI(navbarPage(
   tabPanel("Buscar",
     fluidPage(
       titlePanel('Buscar'),
-      search_name_input(),
-      start_search_button()
+      div(
+        id = 'name_search_form',
+        search_name_input(),
+        search_name_button()
+      ),
+      div(
+        id = 'outcome'
+#        output$found_name
+      )
     )
   ),
    tabPanel('Input new material',
