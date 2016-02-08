@@ -64,7 +64,7 @@ shinyServer(function(input, output){
     conn <- openConnection(host, port)
     found_name <- r()$db('test')$table('materials')$filter(
       list(
-        nombre= input$search_name)
+        nombre = input$search_name)
       )$run(conn)
   }
 
