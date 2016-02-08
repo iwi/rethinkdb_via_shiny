@@ -107,12 +107,18 @@ add_record_button <- function(){
     class = "btn-primary")
 }
 
-search_name <- function(){
+search_name_input <- function(){
   textInput(
-    'search_name',
+    'search_name_input',
     h3('Búsqueda por nombre del material'))
 }
 
+start_search_button <- function(){
+  actionButton(
+    "start_name_search",
+    label = "Buscar",
+    class = "btn-secondary")
+}
 
 
 
@@ -120,15 +126,14 @@ search_name <- function(){
 
 shinyUI(navbarPage(
   title = "Tatiana's teaching materials",
-  tabPanel(
-    "Summary",
-    h1('What a nice title'),
-    p('something and something'),
-    img(src = "nens.jpg",
-        height = 400,
-        width = 300)
+  tabPanel("Buscar",
+    fluidPage(
+      titlePanel('Buscar'),
+      search_name_input(),
+      start_search_button()
+    )
   ),
-  tabPanel('Input new material',
+   tabPanel('Input new material',
     fluidPage(
       shinyjs::useShinyjs(),
       shinyjs::inlineCSS(appCSS),
@@ -151,11 +156,12 @@ shinyUI(navbarPage(
       )
     )
   ),
-  tabPanel("Search",
-    fluidPage(
-      titlePanel('Search by material'),
-      search_name_input(),
-      start_search_button()
-    )
+ tabPanel(
+    "Summary",
+    h1('What a nice title'),
+    p('something and something'),
+    img(src = "nens.jpg",
+        height = 400,
+        width = 300)
   )
 ))
