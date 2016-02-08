@@ -97,7 +97,12 @@ material_input <- function(){
 }
 
 comments_input <- function(){
-  HTML('<textarea id = "comments" rows = "5" cols = "80">...</textarea>')
+  HTML(paste(
+    '<h3>Comentarios</h3>',
+    '<textarea id = "comments" rows = "5" cols = "80">...</textarea>'),
+    '<br>',
+    '<br>',
+    sep = '')
 }
 
 add_record_button <- function(){
@@ -129,14 +134,20 @@ shinyUI(navbarPage(
   tabPanel("Buscar",
     fluidPage(
       titlePanel('Buscar'),
-      div(
-        id = 'name_search_form',
-        search_name_input(),
-        search_name_button()
-      ),
-      div(
-        id = 'outcome'
-#        output$found_name
+      sidebarLayout(
+        sidebarPanel(
+          div(
+            id = 'name_search_form',
+            search_name_input(),
+            search_name_button()
+          )
+        ),
+        mainPanel(
+          div(
+            id = 'outcome'
+#           output$found_name
+          )
+        )
       )
     )
   ),
@@ -155,9 +166,7 @@ shinyUI(navbarPage(
         used_level_input(),
         target_level_input(),
         material_input(),
-        h3('Comentarios'),
         comments_input(),
-        br(),
         add_record_button(),
         br(), br()
       )
