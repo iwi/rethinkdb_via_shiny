@@ -49,7 +49,13 @@ location_input <- function(){
       "Otro sitio misterioso"))
 }
 
-used_level <- function(){
+e_location_input <- function(){
+  textInput(
+    'e_location',
+    h3("Ubicación electrònica"))
+}
+
+used_level_input <- function(){
   checkboxGroupInput(
     "used_level",
     label = h3('Nivel en que los he usado'),
@@ -64,7 +70,7 @@ used_level <- function(){
     selected = 0)
 }
 
-target_level <- function(){
+target_level_input <- function(){
   checkboxGroupInput(
     "target_level",
     label = h3(mandatory_label('Nivel objetivo')),
@@ -79,7 +85,7 @@ target_level <- function(){
     selected = 1)
 }
 
-material <- function(){
+material_input <- function(){
   selectInput(
     "material",
     label = h3("Material"),
@@ -90,7 +96,7 @@ material <- function(){
     selected = 1)
 }
 
-comments <- function(){
+comments_input <- function(){
   HTML('<textarea id = "comments" rows = "5" cols = "80">...</textarea>')
 }
 
@@ -100,6 +106,17 @@ add_record_button <- function(){
     label = "Añadir nuevo registro",
     class = "btn-primary")
 }
+
+search_name <- function(){
+  textInput(
+    'search_name',
+    h3('Búsqueda por nombre del material'))
+}
+
+
+
+
+## Main
 
 shinyUI(navbarPage(
   title = "Tatiana's teaching materials",
@@ -117,21 +134,28 @@ shinyUI(navbarPage(
       shinyjs::inlineCSS(appCSS),
       titlePanel("Nuevo material"),
       div(
-        id = "form",
+        id = "input_form",
         name_input(),
         creator_input(),
         score_input(),
         location_input(),
-        used_level(),
-        target_level(),
-        material(),
+        e_location_input(),
+        used_level_input(),
+        target_level_input(),
+        material_input(),
         h3('Comentarios'),
-        comments(),
+        comments_input(),
         br(),
         add_record_button(),
         br(), br()
       )
     )
   ),
-  tabPanel("Search")
+  tabPanel("Search",
+    fluidPage(
+      titlePanel('Search by material'),
+      search_name_input(),
+      start_search_button()
+    )
+  )
 ))

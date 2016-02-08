@@ -7,16 +7,6 @@ library(rethinker)
 # declare mandatory fields
 mandatory_fields <- c("name", "target_level", "material")
 
-# declare save fields
-save_fields <- c("name",
-                 "creator",
-                 "score",
-                 "material",
-                 "used_level",
-                 "target_level",
-                 "comments"
-                )
-
 responses_directory <- file.path("responses")
 
 epoch_time <- function() {
@@ -54,6 +44,7 @@ shinyServer(function(input, output){
          creador = input$creator,
          score = input$score,
          ubicacion = input$location,
+         ubicacion_electronica = input$e_location,
          material = input$material,
          nivel_usado = input$used_level,
          nivel_target = input$target_level,
