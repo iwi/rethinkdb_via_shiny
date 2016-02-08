@@ -9,9 +9,7 @@ mandatory_fields <- c("name", "target_level", "material")
 
 responses_directory <- file.path("responses")
 
-epoch_time <- function() {
-    as.integer(Sys.time())
-}
+human_time <- function() format(Sys.time(), "%Y/%m/%d-%H:%M:%OS")
 
 host <- 'db'
 port <- 28015
@@ -48,7 +46,8 @@ shinyServer(function(input, output){
          material = input$material,
          nivel_usado = input$used_level,
          nivel_target = input$target_level,
-         comentarios = input$comments),
+         comentarios = input$comments,
+         fecha_insercion = human_time()),
        conflict = "update",
        return_changes = FALSE
     )$run(conn)
